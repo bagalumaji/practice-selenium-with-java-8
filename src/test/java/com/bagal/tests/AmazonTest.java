@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import java.util.*;
 
 public class AmazonTest {
+
     @Test
     public void amazonTest() {
         WebDriver driver = new ChromeDriver();
@@ -16,7 +17,7 @@ public class AmazonTest {
         driver.get("https://www.amazon.com/");
 
 
-        List<WebElement> allLinks = driver.findElements(By.tagName("a"));
+        List<WebElement> allLinks = driver.findElements(By.xpath("//a"));
         List<String> allText = new ArrayList<>();
         for (WebElement link : allLinks) {
             String tt1 = link.getText();
@@ -24,9 +25,14 @@ public class AmazonTest {
                 allText.add(tt1);
             }
         }
-        List<String> removingDuplicates = new ArrayList<>(new HashSet<>(allText));
-        Collections.sort(removingDuplicates);
-        System.out.println(removingDuplicates);
+      //  List<String> removingDuplicates = new ArrayList<>(new HashSet<>(allText));
+        Collections.sort(allText);
+
+        for(String text : allText){
+            if(text.startsWith("C")){
+                System.out.println(text);
+            }
+        }
 
         driver.quit();
     }
