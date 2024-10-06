@@ -36,4 +36,21 @@ public class AmazonTest {
 
         driver.quit();
     }
+    @Test
+    public void amazonWithLambdaTest() {
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.amazon.com/");
+        driver
+                .findElements(By.xpath("//a"))
+                .stream()
+                .map(WebElement::getText)
+                .filter(str->!str.isBlank())
+                .distinct()
+                .sorted()
+                .filter(text->text.startsWith("C"))
+                .forEach(System.out::println);
+
+    }
+
 }
