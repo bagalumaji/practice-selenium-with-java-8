@@ -2,7 +2,6 @@ package com.bagal.demo;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -24,7 +23,7 @@ public class PageActionsUtil {
 
     public void sendKeysToElement(WebElement element, String text, WaitCondition waitCondition) {
         WebElement visibleElement = applyExplicitWait(element, waitCondition);
-        inputAction(visibleElement, (el, value) -> el.sendKeys(value), text);
+        inputAction(visibleElement, WebElement::sendKeys, text);
     }
 
     public boolean isElementDisplayed(WebElement element, WaitCondition waitCondition) {
@@ -45,6 +44,6 @@ public class PageActionsUtil {
     }
 
     private WebElement applyExplicitWait(WebElement element, WaitCondition waitCondition) {
-        return wait.until(driver -> waitCondition.apply(driver, element));
+        return wait.until(driver -> waitCondition.apply(this.driver, element));
     }
 }
